@@ -30,47 +30,55 @@ Typical local ports:
 
 ---
 
-### 1) FastAPI server
+## 1) FastAPI server
 
-Mac/Linux:
-- cd ABB-Final
-- python3 -m venv env
-- source env/bin/activate
-- python -m pip install -U pip setuptools wheel
-- pip install -r requirements.txt
-- uvicorn main:app --reload
+### Mac/Linux
+```bash
+cd ABB-Final
+python3 -m venv env
+source env/bin/activate
+python -m pip install -U pip setuptools wheel
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
 
+---
 
-Windows (PowerShell):
-- cd ABB-Final
-- python -m venv env
-- .\env\Scripts\activate
-- python -m pip install -U pip setuptools wheel
-- pip install -r requirements.txt
-- uvicorn main:app --reload
+Windows (PowerShell)
+```bash
+cd ABB-Final
+python -m venv env
+.\env\Scripts\activate
+python -m pip install -U pip setuptools wheel
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
 
 
 ---
 
 ### 2) .NET API
-- cd ABB-Final/ABBproj/IntelliInspect.Api
-- dotnet build
-- dotnet run
+```bash
+cd ABB-Final/ABBproj/IntelliInspect.Api
+dotnet build
+dotnet run
+```
 
 
 
 ---
 
 ### 3) Angular frontend
-- cd ABB-Final/frontend/abb-front/abb
-- npm install
-- npm install -g @angular/cli
-- ng serve
-
+``` bash
+cd ABB-Final/frontend/abb-front/abb
+npm install
+npm install -g @angular/cli
+ng serve
+```
 
 
 Then open:  
-- http://localhost:4200
+http://localhost:4200
 
 ---
 
