@@ -1,0 +1,133 @@
+<!-- src/app/upload/upload.component.html -->
+<div class="upload-container">
+  <div class="upload-card">
+    <div *ngIf="!uploadResult; else resultView">
+      <!-- Upload Form -->
+      <div class="upload-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="17 8 12 3 7 8"></polyline>
+          <line x1="12" y1="3" x2="12" y2="15"></line>
+        </svg>
+      </div>
+      
+      <h1 class="upload-title">Upload Your CSV File</h1>
+      <p class="upload-subtitle">Drag & drop your file here or</p>
+      
+      <label class="file-input-wrapper">
+        <input type="file" class="file-input" (change)="onFileSelected($event)" accept=".csv">
+        <div class="browse-btn" style="color: black">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          Choose a File
+        </div>
+      </label>
+      
+      <div *ngIf="fileName" class="file-preview">
+        <div class="file-info">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="file-icon">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+          </svg>
+          <span class="file-name" [title]="fileName">{{ fileName }}</span>
+        </div>
+        <button class="clear-btn" (click)="file = null; fileName = ''" aria-label="Remove file">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      
+      <button class="upload-btn" style="color: black"
+              [class.upload-btn--disabled]="!file" 
+              (click)="file && onUpload()" 
+              [disabled]="!file || isUploading">
+        <span *ngIf="!isUploading">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          Upload File
+        </span>
+        <span *ngIf="isUploading" class="uploading-text">
+          Uploading...
+        </span>
+      </button>
+
+      <!-- Progress Bar -->
+      <div *ngIf="isUploading" class="progress-container">
+        <div class="progress-bar" [style.width.%]="uploadProgress">
+          <span class="progress-text">{{ uploadProgress }}%</span>
+        </div>
+      </div>
+      
+      <p class="upload-hint">Supports: CSV</p>
+      
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+      </div>
+    </div>
+    
+    <!-- Result View -->
+    <ng-template #resultView>
+      <div class="success-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </div>
+      
+      <h1 class="upload-title">File Uploaded Successfully!</h1>
+      
+      <div *ngIf="uploadResult?.Metadata" class="metadata-container" style="margin-top: 24px; padding: 24px; background-color: white; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <h3 class="text-lg font-medium mb-4">Upload Successful!</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="metadata-row">
+            <span class="label">File Name:</span>
+            <span class="value">{{ uploadResult?.OriginalFileName || 'N/A' }}</span>
+          </div>
+          <div class="metadata-row">
+            <span class="label">Total Records:</span>
+            <span class="value">{{ uploadResult?.Metadata?.TotalRecords | number }}</span>
+          </div>
+          <div class="metadata-row">
+            <span class="label">Total Columns:</span>
+            <span class="value">{{ uploadResult?.Metadata?.TotalColumns || 'N/A' }}</span>
+          </div>
+          <div class="metadata-row">
+            <span class="label">Pass Rate:</span>
+            <span class="value">{{ uploadResult?.Metadata?.PassRatePercent ? (uploadResult?.Metadata?.PassRatePercent | number:'1.0-2') + '%' : 'N/A' }}</span>
+          </div>
+          <div class="metadata-row">
+            <span class="label">Date Range:</span>
+            <span class="value">
+              {{ formatDate(uploadResult?.Metadata?.EarliestSyntheticTimestamp) }} - 
+              {{ formatDate(uploadResult?.Metadata?.LatestSyntheticTimestamp) }}
+            </span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="action-buttons" style="display: flex; gap: 1rem; margin-top: 2rem; justify-content: center;">
+        <button class="upload-again-btn" (click)="resetForm()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+          </svg>
+          Upload Another File
+        </button>
+        
+        <button class="next-btn" (click)="navigateToDateRange()" style="background-color: #007bff; color: white; border: none; border-radius: 4px; padding: 0.75rem 1.5rem; cursor: pointer; display: inline-flex; align-items: center; font-weight: 500; transition: background-color 0.2s;">
+          Next: Select Date Ranges
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </ng-template>
+  </div>
+</div>

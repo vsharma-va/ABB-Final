@@ -1,0 +1,369 @@
+/* Main container */
+.simulation-container {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Stats and Charts Row */
+.stats-charts-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 30px;
+  justify-content: space-between;
+}
+
+/* Statistics Panel */
+.statistics-panel {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
+}
+
+.statistics-panel h3 {
+  margin-top: 0;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 8px 0;
+  border-bottom: 1px dashed #eee;
+}
+
+.stat-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.stat-label {
+  font-weight: 500;
+  color: #555;
+}
+
+.stat-value {
+  font-weight: 600;
+  color: #333;
+}
+
+.stat-value.pass {
+  color: #4caf50;
+}
+
+.stat-value.fail {
+  color: #f44336;
+}
+
+/* Chart Containers */
+.chart-container {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  min-width: 300px;
+  max-width: calc(50% - 30px);
+  margin-bottom: 0;
+}
+
+.chart-container h3 {
+  margin-top: 0;
+  color: #333;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.chart-container canvas {
+  width: 100% !important;
+  height: 250px !important;
+}
+
+/* Prediction Table */
+.prediction-table-container {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.prediction-table-container h3 {
+  margin-top: 0;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.prediction-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.prediction-table th {
+  background-color: #f8f9fa;
+  color: #555;
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.prediction-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  color: #333;
+}
+
+.prediction-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Prediction status colors */
+.prediction-pass {
+  color: #4caf50;
+  font-weight: 600;
+}
+
+.prediction-fail {
+  color: #f44336;
+  font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .stats-charts-row {
+    flex-direction: column;
+  }
+  
+  .statistics-panel,
+  .chart-container {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+}
+
+/* Loading and error states */
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  text-align: center;
+}
+
+.error-message {
+  color: #f44336;
+  margin-bottom: 20px;
+  font-size: 1.1em;
+}
+
+/* Simulation controls */
+.simulation-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.simulation-status {
+  display: flex;
+  align-items: center;
+  color: #4caf50;
+  font-weight: 500;
+}
+
+.simulation-status mat-icon {
+  margin-right: 8px;
+}
+
+/* Progress indicator */
+.progress-indicator {
+  text-align: right;
+  margin-bottom: 20px;
+  font-weight: 500;
+  color: #555;
+}
+
+/* Simulation nav */
+.simulation-nav {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.simulation-nav button {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  background: #f5f5f5;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.simulation-nav button:hover {
+  background: #e9e9e9;
+}
+
+.simulation-nav button.active {
+  background: #3f51b5;
+  color: white;
+  border-color: #3f51b5;
+}
+
+/* Simulation button */
+.simulation-button {
+  padding: 10px 20px;
+  background: #3f51b5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.simulation-button:hover {
+  background: #303f9f;
+}
+
+.simulation-button:disabled {
+  background: #9fa8da;
+  cursor: not-allowed;
+}
+
+/* Charts container */
+.charts-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 30px 0;
+}
+
+.chart-container {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Statistics panel */
+.statistics-panel {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin: 25px 0;
+}
+
+.stat-item {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
+.stat-value.pass {
+  color: #4caf50;
+}
+
+.stat-value.fail {
+  color: #f44336;
+}
+
+/* Prediction table container */
+.prediction-table-container {
+  margin-top: 30px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.table-wrapper {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-top: 15px;
+}
+
+.prediction-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.prediction-table th,
+.prediction-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.prediction-table th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+  color: #333;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.prediction-pass {
+  color: #4caf50;
+  font-weight: 500;
+}
+
+.prediction-fail {
+  color: #f44336;
+  font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .charts-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .statistics-panel {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .statistics-panel {
+    grid-template-columns: 1fr;
+  }
+  
+  .simulation-nav {
+    flex-wrap: wrap;
+  }
+}

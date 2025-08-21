@@ -1,0 +1,111 @@
+<div class="date-range-container">
+  <h2>Select Date Ranges</h2>
+  
+  <div class="date-range-section">
+    <div class="form-group">
+      <h3>Training Period</h3>
+      <div class="date-pair">
+        <div class="date-input">
+          <label for="trainingStart">Start:</label>
+          <input type="datetime-local" id="trainingStart" 
+                 [(ngModel)]="trainingStart" 
+                 (change)="onDateChange()"
+                 [min]="minDateTime"
+                 [max]="maxDateTime">
+        </div>
+        <div class="date-input">
+          <label for="trainingEnd">End:</label>
+          <input type="datetime-local" id="trainingEnd" 
+                 [(ngModel)]="trainingEnd" 
+                 (change)="onDateChange()"
+                 [min]="minDateTime"
+                 [max]="maxDateTime">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="date-range-section">
+    <div class="form-group">
+      <h3>Testing Period</h3>
+      <div class="date-pair">
+        <div class="date-input">
+          <label for="testingStart">Start:</label>
+          <input type="datetime-local" id="testingStart" 
+                 [(ngModel)]="testingStart" 
+                 (change)="onDateChange()"
+                 [min]="minDateTime"
+                 [max]="maxDateTime">
+        </div>
+        <div class="date-input">
+          <label for="testingEnd">End:</label>
+          <input type="datetime-local" id="testingEnd" 
+                 [(ngModel)]="testingEnd" 
+                 (change)="onDateChange()"
+                 [min]="minDateTime"
+                 [max]="maxDateTime">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="date-range-section">
+    <div class="form-group">
+      <h3>Simulation Period</h3>
+      <div class="date-pair">
+        <div class="date-input">
+          <label for="simulationStart">Start:</label>
+          <input type="datetime-local" id="simulationStart" 
+                 [(ngModel)]="simulationStart" 
+                 (change)="onDateChange()"
+                 [min]="minDateTime"
+                 [max]="maxDateTime">
+        </div>
+        <div class="date-input">
+          <label for="simulationEnd">End:</label>
+          <input type="datetime-local" id="simulationEnd" 
+                 [(ngModel)]="simulationEnd" 
+                 (change)="onDateChange()"
+                 [min]="minDateTime"
+                 [max]="maxDateTime">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <canvas id="dateRangeChart"></canvas>
+  </div>
+
+  <!-- Add error message display -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Add loading indicator -->
+  <div *ngIf="isLoading" class="text-center my-3">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p>Validating date ranges...</p>
+  </div>
+
+  <!-- Add success message -->
+  <div *ngIf="validationResult && !validationResult.Error" class="alert alert-success">
+    Date ranges validated successfully!
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-secondary" (click)="navigateBack()">Back</button>
+    <button class="btn btn-info me-2" 
+            (click)="validateDateRanges()" 
+            [disabled]="!areAllDatesFilled || isLoading">
+      Validate Date Ranges
+    </button>
+    <button class="btn btn-primary" 
+            (click)="onProceed()" 
+            [disabled]="!validationResult || validationResult.Error">
+      Proceed
+    </button>
+  </div>
+</div>
